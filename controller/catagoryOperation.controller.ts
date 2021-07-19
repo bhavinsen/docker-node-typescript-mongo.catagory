@@ -51,15 +51,16 @@ export const countCatagoryAmount = async (req: Request, res: Response) => {
 
 
 export const updateCatagoryPrice = async (req: Request, res: Response) => {
-    const { catagoryID, price } = req.body;
+    const { catagoryID, price } = req.query;
+
     try {
         if (catagoryID && price) {
             const catagory = await Catagory.findOne({ _id: catagoryID })
             if (!catagory.children.length) {
                 const updatedCatagory = await Catagory.findOneAndUpdate({ _id: catagoryID }, { price: price })
-                return res.status(403).json({ updatedCatagory })
+                return res.status(200).json({ updatedCatagory })
             }
-            return res.status(403).json({ error: "We can't change price here!" })
+            return res.status(200).json({ error: "We can't change price here!" })
         }
         return res.status(403).json({ error: "catagoryID, price both are required" })
     } catch (error) {
