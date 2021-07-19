@@ -39,7 +39,7 @@ export const setCatagorys = async (req: Request, res: Response) => {
 
 
 export const countCatagoryAmount = async (req: Request, res: Response) => {
-    const { catagoryID } = req.body;
+    const { catagoryID } = req.query;
     const AllData = await Catagory.findOne({ _id: catagoryID, root: true });
     if (AllData) {
         let TotalAmountOfCatagory = await TotalAmount(AllData);
